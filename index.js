@@ -12,7 +12,20 @@ app.get('/', (req,res)=> {
     res.send('main work')
 })
 
-app.get('/tgHook', (req, res)=> {
+app.get('/tgHook', ({message}, res)=> {
+
+    const {chat} = message
+
+    const response_text = 'Hello from bot'
+
+    const params = {
+        chat_id: chat.id,
+        text: response_text,
+        parse_mode: 'Markdown',
+    }
+
+    const tg_res = await fetch(`https://api.telegram.org/bot1444703979:AAEH5sSqoODQz9DM1uIa-fEyQj5iqP8rXqU/sendMessage?${querystring.stringify(params)}`)
+
     res.send('work')
 })
 
