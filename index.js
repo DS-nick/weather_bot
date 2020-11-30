@@ -16,6 +16,8 @@ app.get('/tgHook', async ({message}, res)=> {
 
     const {chat} = message
 
+    console.log(chat)
+
     const response_text = 'Hello from bot'
 
     const params = {
