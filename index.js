@@ -3,32 +3,24 @@ const querystring = require('querystring')
 const aaSqlite = require("aa-sqlite");
 const moment = require('moment');
 const express = require('express')
+const fs = require('fs')
 require('dotenv').config();
 console.log('work', process.env.TELEGRAM_TOKEN)
 
 
+const https = require('https')
 const app = express()
-app.get('/', async (req,res)=> {
-    res.send('main work')
+
+app.get('/', (req, res) => {
+  res.send('Hello HTTPS!')
 })
 
-app.get('/tgHook', async ({message}, res)=> {
-
-    const {chat} = message
-
-    console.log(chat)
-
-    const response_text = 'Hello from bot'
-
-    const params = {
-        chat_id: chat.id,
-        text: response_text,
-        parse_mode: 'Markdown',
-    }
-
-    const tg_res = await fetch(`https://api.telegram.org/bot1444703979:AAEH5sSqoODQz9DM1uIa-fEyQj5iqP8rXqU/sendMessage?${querystring.stringify(params)}`)
-
-    res.send('work')
+https.createServer({
+    key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(8444, () => {
+    
+  console.log('Listening...')
 })
 
 // async function tg_bot() {
@@ -103,6 +95,6 @@ app.get('/tgHook', async ({message}, res)=> {
 // setInterval(tg_bot, 1000)
 
 
- app.listen(8443, ()=> {
-    console.log('App work in port 3000')
-})
+//  app.listen(8443, ()=> {
+//     console.log('App work in port 3000')
+// })
