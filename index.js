@@ -8,11 +8,11 @@ console.log('work', process.env.TELEGRAM_TOKEN)
 
 
 const app = express()
-app.get('/', (req,res)=> {
+app.get('/', async (req,res)=> {
     res.send('main work')
 })
 
-app.get('/tgHook', ({message}, res)=> {
+app.get('/tgHook', async ({message}, res)=> {
 
     const {chat} = message
 
